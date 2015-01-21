@@ -93,7 +93,7 @@ CREATE TABLE bzv_users (
     year smallint NOT NULL,
     name character varying(32) NOT NULL,
     email character varying(64) NOT NULL,
-    password character(60) NOT NULL
+    hash character(60) NOT NULL
 );
 
 

@@ -2,8 +2,6 @@
 
 require_once '../base.php';
 
-$peasants = Peasant::get_all(2014);
-
 ?>
 <html>
   <head>
@@ -11,9 +9,14 @@ $peasants = Peasant::get_all(2014);
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
+    <div class="title"></div>
+    <div class="user"><?php echo $USER ? $USER->get_name() : ''; ?></div>
     <div class="bzv">
 
 <?php
+
+  $year = $USER->get_year();
+  $peasants = Peasant::get_all($year);
 
   $divs = array();
 
@@ -32,6 +35,11 @@ $peasants = Peasant::get_all(2014);
 
 ?>
 
+    </div>
+    <div class="login">
+      <form method="POST">
+        <input name="logout" type="submit" value="Uitloggen">
+      </form>
     </div>
   </body>
 </html>

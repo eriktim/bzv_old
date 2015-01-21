@@ -1,7 +1,39 @@
+body {
+  margin: 0px;
+}
+
+.login {
+  width: 100%;
+  margin: 0 auto;
+  text-align: center;
+  padding: 24px;
+}
+
+.login > input {
+  padding: 5px;
+}
+
 .bzv { 
   width: 720px;
   margin: 60px auto;
   text-align: center;
+}
+
+.title {
+  width: 100%;
+  height: 43px;
+  background: url('images/headerbalk.png') top left no-repeat;
+}
+
+.user {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  font: 52px/45px 'ProximaNovaExtrabold', Arial;
+  color: rgb(0, 0, 0);
+  text-transform: uppercase;
+  text-shadow: 0.1em 0.1em 0.2em rgba(0, 0, 0, 0.3);
+  z-index: 1;
 }
 
 .separator {
