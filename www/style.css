@@ -1,0 +1,176 @@
+.bzv { 
+  width: 720px;
+  margin: 60px auto;
+  text-align: center;
+}
+
+.separator {
+  border-bottom: solid rgb(144, 144, 144) 3px;
+  padding-bottom: 18px;
+}
+
+.peasant {
+  display: inline-block;
+  width: 84px;
+  height: 103px;
+  background: url("images/2014_boeren_sprite.png") no-repeat;
+}
+
+.container > .peasant {
+  margin-right: 48px;
+  padding-top: 9px;
+}
+
+.peasant.pea1 {
+  background-position: 0px 0;
+}
+
+.peasant.pea2 {
+  background-position: -84px 0;
+}
+
+.peasant.pea3 {
+  background-position: -252px 0;
+}
+
+.peasant.pea4 {
+  background-position: -588px 0;
+}
+
+.peasant.pea5 {
+  background-position: -672px 0;
+}
+
+.candidate {
+  display: inline-block;
+  width: 90px;
+  height: 110px;
+  margin-top: 30px;
+  cursor: pointer;
+  background-position-y: 0px;
+}
+
+.candidate.pea1 {
+  background: url("images/boer1-2014.png") no-repeat top left;
+}
+
+.candidate.pea2 {
+  background: url("images/boer2-2014.png") no-repeat top left;
+}
+
+.candidate.pea3 {
+  background: url("images/boer3-2014.png") no-repeat top left;
+}
+
+.candidate.pea4 {
+  background: url("images/boer4-2014.png") no-repeat top left;
+}
+
+.candidate.pea5 {
+  background: url("images/boer5-2014.png") no-repeat top left;
+}
+
+.candidate.disabled {
+  cursor: default;
+  background-position-y: -110px;
+}
+
+.candidate.can1 {
+  background-position-x: -270px;
+}
+
+.candidate.can2 {
+  background-position-x: -90px;
+}
+
+.candidate.can3 {
+  background-position-x: 0px;
+}
+
+.candidate.can4 {
+  background-position-x: -360px;
+}
+
+.candidate.can5 {
+  background-position-x: -180px;
+}
+
+.candidate.can6 {
+  background-position-x: -360px;
+}
+
+.candidate.can7 {
+  background-position-x: -180px;
+}
+
+.candidate.can8 {
+  background-position-x: 0px;
+}
+
+.candidate.can9 {
+  background-position-x: -270px;
+}
+
+.candidate.can10 {
+  background-position-x: -90px;
+}
+
+.candidate.can11 {
+  background-position-x: -180px;
+}
+
+.candidate.can12 {
+  background-position-x: -270px;
+}
+
+.candidate.can13 {
+  background-position-x: -90px;
+}
+
+.candidate.can14 {
+  background-position-x: 0px;
+}
+
+.candidate.can15 {
+  background-position-x: -360px;
+}
+
+.candidate.can16 {
+  background-position-x: 0px;
+}
+
+.candidate.can17 {
+  background-position-x: -180px;
+}
+
+.candidate.can18 {
+  background-position-x: -270px;
+}
+
+.candidate.can19 {
+  background-position-x: -360px;
+}
+
+.candidate.can20 {
+  background-position-x: -90px;
+}
+
+.candidate.can21 {
+  background-position-x: -360px;
+}
+
+.candidate.can22 {
+  background-position-x: -270px;
+}
+
+.candidate.can23 {
+  background-position-x: -90px;
+}
+
+.candidate.can24 {
+  background-position-x: 0px;
+}
+
+.candidate.can25 {
+  background-position-x: -180px;
+}
