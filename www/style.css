@@ -39,6 +39,24 @@ body {
   border-radius: .25em;
 }
 
+
+#help-toggle {
+  cursor: pointer;
+}
+
+#help {
+  display: none;
+  text-align: left;
+}
+
+#help > ul {
+  list-style: none;
+}
+
+#help .icon {
+  display: inline-block;
+}
+
 .user {
   position: absolute;
   right: 12px;
@@ -56,16 +74,19 @@ body {
 }
 
 .icon {
-  position: relative;
-  right: -52px;
-  bottom: -42px;
   width: 48px;
   height: 48px;
   background: url("images/icons.png") no-repeat;
   background-position: 48px 0px;
 }
 
-.peasant > .icon {
+.badge {
+  position: relative;
+  right: -52px;
+  bottom: -42px;
+}
+
+.peasant > .badge {
   right: -50px;
   bottom: -36px;
 }

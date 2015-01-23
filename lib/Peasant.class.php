@@ -34,7 +34,7 @@ class Peasant extends Base {
       }
     }
     return '<div class="peasant pea' . $this->id . '">'
-        . '<div class="icon ' . $icon . '"></div></div>';
+        . '<div class="badge icon ' . $icon . '"></div></div>';
   }
 
   public function get_candidates() {

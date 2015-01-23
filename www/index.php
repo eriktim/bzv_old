@@ -7,6 +7,7 @@ require_once '../base.php';
   <head>
     <title>Boer Zoekt Vrouw</title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="jquery-2.1.3.min.js"></script>
   </head>
   <body>
     <div class="title"></div>
@@ -25,11 +26,18 @@ if ($USER) {
     $date = $period->get_end_date();
     $count = $period->get_vote_count();
     $countText = $period->get_vote_count_as_text();
-    $message = 'Stemmen kan tot <b>' . $date . '</b>. '
+    $message = '<div>Stemmen kan tot <b>' . $date . '</b>.<br>'
         . 'Er gaa' . ($count == 1 ? 't' : 'n') . ' <b>' . $countText
         . '</b> boer' . ($count == 1 ? '' : 'en')
         . ' door naar de volgende ronde. '
-        . 'Alle wijzigingen worden direct opgeslagen. ';
+        . '<span id="help-toggle">[...]</span></div>'
+        . '<div id="help"><ul>'
+        . '<li>Alle wijzigingen worden direct opgeslagen.</li>'
+        . '<li><div class="icon ico-bad"></div><span>Deze kandidaat gaat NIET door.</span></li>'
+        . '<li><div class="icon ico-good"></div><span>Deze kandidaat gaat WEL door.</span></li>'
+        . '<li><div class="icon ico-heart"></div><span>Deze kandidaat gaat WEL door én is de uiteindelijk winnaar.</span></li>'
+        . '<li><div class="icon ico-warning"></div><span>De stemmen voor deze boer zijn niet geldig. Controleer deze en pas ze aan.</span></li>'
+        . '</ul></div>';
   }
   echo '<div class="info">' . $message . '</div>';
 
@@ -65,5 +73,6 @@ if ($USER) {
 
 ?>
 
+    <script src="bzv.js"></script>
   </body>
 </html>

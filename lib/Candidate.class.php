@@ -42,7 +42,7 @@ class Candidate extends Base {
       }
     }
     return '<div class="candidate pea' . $peasant->id . ' can' . $this->id
-        . $disabled . '"><div class="icon ' . $icon . '"></div></div>';
+        . $disabled . '"><div class="badge icon ' . $icon . '"></div></div>';
   }
 
   public static function get_all($var) {
