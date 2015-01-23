@@ -17,9 +17,11 @@ class Peasant extends Base {
       $voteCount = 0;
       foreach ($votes as $vote) {
         if ($vote->get_peasant()->id == $this->id) {
-          $voteCount++;
-          if ($vote->get_type()->id == VoteType::WINNER) {
-            $winners++;
+          if (!$vote->get_candidate()->is_eliminated()) {
+            $voteCount++;
+            if ($vote->get_type()->id == VoteType::WINNER) {
+              $winners++;
+            }
           }
         }
       }
