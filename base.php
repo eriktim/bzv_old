@@ -45,3 +45,4 @@ if (empty($_SESSION['userid']) || $_POST['logout']) {
   $userid = (int) $_SESSION['userid'];
   $USER = new User($userid);
 }
+

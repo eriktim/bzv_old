@@ -9,7 +9,7 @@ class Candidate extends Base {
     return parent::get_value('name');
   }
 
-  public function peasant() {
+  public function get_peasant() {
     return parent::get_object(Peasant::c());
   }
 
@@ -18,10 +18,31 @@ class Candidate extends Base {
     return !!$date;
   }
 
-  public function as_html() {
-    $peasant = $this->peasant();
-    $disabled = $this->is_eliminated() ? ' disabled' : '';
-    return '<div class="candidate pea' . $peasant->id . ' can' . $this->id . $disabled . '"></div>';
+  public function as_html($votes) {
+    $peasant = $this->get_peasant();
+    $eliminated = $this->is_eliminated();
+    $disabled = '';
+    $icon = '';
+    if ($eliminated) {
+      $disabled = ' disabled';
+    } else {
+      $icon = count($votes) > 0 ? 'ico-bad' : '';
+      foreach ($votes as $vote) {
+        if ($vote->get_candidate()->id == $this->id) {
+          switch ($vote->get_type()->id) {
+            case VoteType::NORMAL:
+              $icon = 'ico-good';
+              break;
+            case VoteType::WINNER:
+              $icon = 'ico-heart';
+              break;
+          }
+          break;
+        }
+      }
+    }
+    return '<div class="candidate pea' . $peasant->id . ' can' . $this->id
+        . $disabled . '"><div class="icon ' . $icon . '"></div></div>';
   }
 
   public static function get_all($var) {

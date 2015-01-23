@@ -1,5 +1,7 @@
 body {
   margin: 0px;
+  font-family: Arial;
+  overflow-x: hidden;
 }
 
 .login {
@@ -25,6 +27,18 @@ body {
   background: url('images/headerbalk.png') top left no-repeat;
 }
 
+.info {
+  background-color: rgb(144, 144, 144);
+  margin-bottom: 16px;
+  padding: .2em .6em .3em;
+  font-size: larger;
+  line-height: 1;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  vertical-align: baseline;
+  border-radius: .25em;
+}
+
 .user {
   position: absolute;
   right: 12px;
@@ -39,6 +53,37 @@ body {
 .separator {
   border-bottom: solid rgb(144, 144, 144) 3px;
   padding-bottom: 18px;
+}
+
+.icon {
+  position: relative;
+  right: -52px;
+  bottom: -42px;
+  width: 48px;
+  height: 48px;
+  background: url("images/icons.png") no-repeat;
+  background-position: 48px 0px;
+}
+
+.peasant > .icon {
+  right: -50px;
+  bottom: -36px;
+}
+
+.icon.ico-heart {
+  background-position-x: 0px;
+}
+
+.icon.ico-good {
+  background-position-x: -48px;
+}
+
+.icon.ico-bad {
+  background-position-x: -96px;
+}
+
+.icon.ico-warning {
+  background-position-x: -144px;
 }
 
 .peasant {

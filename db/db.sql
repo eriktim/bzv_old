@@ -100,6 +100,35 @@ CREATE TABLE bzv_users (
 ALTER TABLE bzv_users OWNER TO bzv_user;
 
 --
+-- Name: bzv_vote_periods_id_seq; Type: SEQUENCE; Schema: public; Owner: bzv_user
+--
+
+CREATE SEQUENCE bzv_vote_periods_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE bzv_vote_periods_id_seq OWNER TO bzv_user;
+
+--
+-- Name: bzv_vote_periods; Type: TABLE; Schema: public; Owner: bzv_user; Tablespace: 
+--
+
+CREATE TABLE bzv_vote_periods (
+    id integer DEFAULT nextval('bzv_vote_periods_id_seq'::regclass) NOT NULL,
+    year smallint NOT NULL,
+    date_start timestamp without time zone NOT NULL,
+    date_end timestamp without time zone NOT NULL,
+    vote_count smallint NOT NULL
+);
+
+
+ALTER TABLE bzv_vote_periods OWNER TO bzv_user;
+
+--
 -- Name: bzv_vote_types_id_seq; Type: SEQUENCE; Schema: public; Owner: bzv_user
 --
 
@@ -147,6 +176,7 @@ CREATE TABLE bzv_votes (
     id integer DEFAULT nextval('bzv_votes_id_seq'::regclass) NOT NULL,
     userid integer NOT NULL,
     candidateid integer NOT NULL,
+    vote_periodid integer NOT NULL,
     date_voted timestamp without time zone NOT NULL,
     typeid smallint NOT NULL
 );
@@ -179,6 +209,14 @@ ALTER TABLE ONLY bzv_users
 
 
 --
+-- Name: bzv_vote_periods_pkey; Type: CONSTRAINT; Schema: public; Owner: bzv_user; Tablespace: 
+--
+
+ALTER TABLE ONLY bzv_vote_periods
+    ADD CONSTRAINT bzv_vote_periods_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: bzv_vote_types_pkey; Type: CONSTRAINT; Schema: public; Owner: bzv_user; Tablespace: 
 --
 
@@ -192,6 +230,14 @@ ALTER TABLE ONLY bzv_vote_types
 
 ALTER TABLE ONLY bzv_votes
     ADD CONSTRAINT bzv_votes_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: bzv_votes_userid_candidateid_vote_periodid_key; Type: CONSTRAINT; Schema: public; Owner: bzv_user; Tablespace: 
+--
+
+ALTER TABLE ONLY bzv_votes
+    ADD CONSTRAINT bzv_votes_userid_candidateid_vote_periodid_key UNIQUE (userid, candidateid, vote_periodid);
 
 
 --
@@ -224,6 +270,14 @@ ALTER TABLE ONLY bzv_votes
 
 ALTER TABLE ONLY bzv_votes
     ADD CONSTRAINT bzv_votes_userid_fkey FOREIGN KEY (userid) REFERENCES bzv_users(id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- Name: bzv_votes_vote_periodid_fkey; Type: FK CONSTRAINT; Schema: public; Owner: bzv_user
+--
+
+ALTER TABLE ONLY bzv_votes
+    ADD CONSTRAINT bzv_votes_vote_periodid_fkey FOREIGN KEY (vote_periodid) REFERENCES bzv_vote_periods(id) ON UPDATE RESTRICT ON DELETE RESTRICT;
 
 
 --
