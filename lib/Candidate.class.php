@@ -49,6 +49,9 @@ class Candidate extends Base {
   public function vote($type) {
     global $USER;
     $period = VotePeriod::get_current();
+    if (!$period) {
+      return false;
+    }
 
     $votes = Vote::find($this, $period);
     if (count($votes) > 0) {
