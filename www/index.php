@@ -23,8 +23,10 @@ if ($USER) {
 
   $message = 'Er is geen actieve stem ronde.';
   if ($period) {
-    $date = $period->get_end_date();
     $count = $period->get_vote_count();
+    echo '<input type="hidden" id="count" value="' . $count . '">';
+
+    $date = $period->get_end_date();
     $countText = $period->get_vote_count_as_text();
     $message = '<div>Stemmen kan tot <b>' . $date . '</b>.<br>'
         . 'Er gaa' . ($count == 1 ? 't' : 'n') . ' <b>' . $countText
@@ -47,7 +49,7 @@ if ($USER) {
 
   foreach ($peasants as $peasant) {
     $div = '<div class="container">';
-    $div .= $peasant->as_html($votes);
+    $div .= $peasant->as_html();
     $candidates = $peasant->get_candidates();
     foreach ($candidates as $candidate) {
       $div .= ' '.$candidate->as_html($votes);
