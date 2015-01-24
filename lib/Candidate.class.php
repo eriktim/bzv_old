@@ -62,7 +62,7 @@ class Candidate extends Base {
       } else {
         return $vote->delete();
       }
-    } elseif ($type->id > 0) {
+    } else {
       return !!Vote::create($this, $period, $type);
     }
   }

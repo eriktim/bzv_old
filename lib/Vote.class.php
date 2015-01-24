@@ -48,6 +48,10 @@ var_dump($data);
   }
 
   public static function create($candidate, $period, $type) {
+    if ($type->id == 0) {
+      return true;
+    }
+
     global $USER, $db;
 
     $data = array(
@@ -69,7 +73,7 @@ var_dump($data);
         . ' RETURNING id';
     $st = $db->prepare($q);
     if (!$st->execute($data)) {
-      return NULL;
+      return false;
     }
 
     $st->setFetchMode(PDO::FETCH_ASSOC);
