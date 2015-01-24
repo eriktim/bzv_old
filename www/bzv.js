@@ -11,7 +11,7 @@ var count = $('#count').val();
 
 $('.container').each(function() {
   var peasant = $(this).find('.peasant > .badge').first();
-  var candidates = $(this).find('.candidate');
+  var candidates = $(this).find('.candidate').not('.disabled');
   var redraw = function () {
     var good = candidates.find('.badge.ico-good').length;
     var heart = candidates.find('.badge.ico-heart').length;
