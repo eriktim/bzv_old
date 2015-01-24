@@ -41,8 +41,30 @@ class Candidate extends Base {
         }
       }
     }
-    return '<div class="candidate pea' . $peasant->id . ' can' . $this->id
-        . $disabled . '"><div class="badge icon ' . $icon . '"></div></div>';
+    return '<div id="' . $this->id . '" class="candidate pea' . $peasant->id
+        . ' can' . $this->id . $disabled . '">'
+        . '<div class="badge icon ' . $icon . '"></div></div>';
+  }
+
+  public function vote($type) {
+    global $USER;
+    $period = VotePeriod::get_current();
+
+    $votes = Vote::find($this, $period);
+    if (count($votes) > 0) {
+      $vote = $votes[0];
+      for ($i = 1; $i < count($votes); $i++) {
+        $votes[$i]->delete();
+      }
+      if ($type->id > 0) {
+        $data = array(VoteType::COLUMN_NAME => $type->id);
+        return $vote->update($data);
+      } else {
+        return $vote->delete();
+      }
+    } elseif ($type->id > 0) {
+      return !!Vote::create($this, $period, $type);
+    }
   }
 
   public static function get_all($var) {

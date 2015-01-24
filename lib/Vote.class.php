@@ -5,6 +5,14 @@ class Vote extends Base {
   const TABLE_NAME = 'bzv_votes';
   const COLUMN_NAME = 'voteid';
 
+  public function delete() {
+    global $db;
+    $data = array('id' => $this->id);
+    $q = 'DELETE FROM ' . self::TABLE_NAME . ' WHERE id=:id';
+    $st = $db->prepare($q);
+    return $st->execute($data);
+  }
+
   public function get_candidate() {
     return parent::get_object(Candidate::c());
   }
@@ -23,6 +31,66 @@ class Vote extends Base {
 
   public function get_type() {
     return parent::get_object(VoteType::c());
+  }
+
+  public function update($data) {
+var_dump($data);
+    global $db;
+    $changes = array();
+    foreach ($data as $key=>$value) {
+      $changes[] = $key . '=:' . $key;
+    }
+    $data['id'] = $this->id;
+    $q = 'UPDATE ' . self::TABLE_NAME . ' SET date_voted=NOW(), '
+        . implode(',', $changes) . ' WHERE id=:id';
+    $st = $db->prepare($q);
+    return $st->execute($data);
+  }
+
+  public static function create($candidate, $period, $type) {
+    global $USER, $db;
+
+    $data = array(
+      User::COLUMN_NAME => $USER->id,
+      Candidate::COLUMN_NAME => $candidate->id,
+      VotePeriod::COLUMN_NAME => $period->id,
+      VoteType::COLUMN_NAME => $type->id
+    );
+    $keys = array();
+    $values = array();
+    foreach ($data as $key=>$value) {
+      $keys[] = $key;
+      $values[] = ':' . $key;
+    }
+
+    $q = 'INSERT INTO ' . self::TABLE_NAME
+        . ' (date_voted, ' . implode(',', $keys) . ')'
+        . ' VALUES (NOW(), ' . implode(',', $values) . ')'
+        . ' RETURNING id';
+    $st = $db->prepare($q);
+    if (!$st->execute($data)) {
+      return NULL;
+    }
+
+    $st->setFetchMode(PDO::FETCH_ASSOC);
+    $voteData = $st->fetch();
+    return new Vote((int) $voteData['id']);
+  }
+
+  public static function find($candidate, $period) {
+    global $USER;
+    $data = array(
+      User::COLUMN_NAME => $USER->id,
+      Candidate::COLUMN_NAME => $candidate->id,
+      VotePeriod::COLUMN_NAME => $period->id
+    );
+    $q = 'SELECT id FROM ' . self::TABLE_NAME
+        . ' WHERE ' . User::COLUMN_NAME . '=:' . User::COLUMN_NAME
+        . ' AND ' . Candidate::COLUMN_NAME . '=:' . Candidate::COLUMN_NAME
+        . ' AND ' . VotePeriod::COLUMN_NAME . '=:' . VotePeriod::COLUMN_NAME
+        . ' ORDER BY id';
+
+    return parent::fetch_array($q, $data);
   }
 
   public static function get_by_user_in_period($user, $period) {

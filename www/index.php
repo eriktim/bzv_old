@@ -18,6 +18,8 @@ require_once '../base.php';
 
 if ($USER) {
 
+  echo '<input type="hidden" id="userid" value="' . $USER->id . '">';
+
   $period = VotePeriod::get_current();
   $votes = Vote::get_by_user_in_period($USER, $period);
 

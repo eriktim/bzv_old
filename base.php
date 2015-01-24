@@ -15,7 +15,7 @@ session_start();
 
 $USER = NULL;
 
-if (empty($_SESSION['userid']) || $_POST['logout']) {
+if (empty($_SESSION['userid']) || isset($_POST['logout'])) {
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     session_unset();
     session_regenerate_id();
