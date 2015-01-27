@@ -50,3 +50,21 @@ if (count > 0) {
     });
   });
 }
+
+var login = $('.login');
+if (login) {
+  var input = login.find('input').first();
+  input.click(function() {
+   input.val('');
+  });
+
+  var nums = login.find('li');
+  nums.click(function() {
+    var val = input.val() + $(this).text();
+    input.val(val);
+    if (val.length == 4) {
+      login.hide();
+      login.find('form').first().submit();
+    }
+  });
+}

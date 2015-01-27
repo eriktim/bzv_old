@@ -19,11 +19,10 @@ if (empty($_SESSION['userid']) || isset($_POST['logout'])) {
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     session_unset();
     session_regenerate_id();
+    $code = $_POST['code'];
 
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    if ($email && $password) {
-      $USER = User::login($email, $password);
+    if ($code) {
+      $USER = User::login(2014, $code);
     }
   }
 
@@ -32,13 +31,19 @@ if (empty($_SESSION['userid']) || isset($_POST['logout'])) {
   } else {
     session_unset();
 
+    echo '<div class="center login">';
     echo '<form method="POST">';
-    echo '<div class="login">';
-    echo '<input name="email" placeholder="E-mailadres" type="text">';
-    echo '<input name="password" placeholder="Wachtwoord" type="password">';
-    echo '<input type="submit" value="Login">';
-    echo '</div>';
+    echo '<input name="code" type="password" value="" readonly/>';
+    echo '<ul class="numpad">';
+    for ($i = 1; $i <= 9; $i++) {
+      echo '<li>' . $i . '</li>';
+    }
+    echo '<li></li>';
+    echo '<li>0</li>';
+    echo '<li></li>';
+    echo '</ul>';
     echo '</form>';
+    echo '</div>';
   }
 
 } else {

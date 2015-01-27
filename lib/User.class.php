@@ -13,13 +13,13 @@ class User extends Base {
     return (int) parent::get_value('year');
   }
 
-  public static function login($email, $password) {
+  public static function login($year, $code) {
     global $db;
 
-    $data = array('email' => $email);
+    $data = array('year' => $year);
 
     $st = $db->prepare('SELECT id, hash FROM ' . self::TABLE_NAME
-         . ' WHERE email=:email ORDER BY id DESC');
+         . ' WHERE year=:year ORDER BY id ASC');
     $st->execute($data);
 
     if ($st->rowCount() === 0) {
@@ -29,12 +29,12 @@ class User extends Base {
       $st->setFetchMode(PDO::FETCH_ASSOC);
       while($row = $st->fetch()) {
         $hash = $row['hash'];
-        if (password_verify($password, $hash)) {
+        if (password_verify($code, $hash)) {
           return new User($row['id']);
         }
       }
     }
-    return NULL;
+    return false;
   }
 
 }

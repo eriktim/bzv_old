@@ -1,8 +1,3 @@
-<?php
-
-require_once '../base.php';
-
-?>
 <html>
   <head>
     <title>Boer Zoekt Vrouw</title>
@@ -11,6 +6,12 @@ require_once '../base.php';
   </head>
   <body>
     <div class="title"></div>
+
+<?php
+
+require_once '../base.php';
+
+?>
     <div class="user"><?php echo $USER ? $USER->get_name() : ''; ?></div>
     <div class="bzv">
 
@@ -65,7 +66,7 @@ if ($USER) {
 ?>
 
     </div>
-    <div class="login">
+    <div class="center">
       <form method="POST">
         <input name="logout" type="submit" value="Uitloggen">
       </form>
