@@ -37,4 +37,11 @@ class User extends Base {
     return false;
   }
 
+  public static function get_all($year) {
+    $data = array('year' => $year);
+    $q = 'SELECT id FROM ' . self::TABLE_NAME . ' WHERE year=:year ORDER BY id';
+
+    return parent::fetch_array($q, $data);
+  }
+
 }
