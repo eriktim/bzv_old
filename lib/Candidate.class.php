@@ -26,14 +26,17 @@ class Candidate extends Base {
     if ($eliminated) {
       $disabled = ' disabled';
     } else {
-      $icon = count($votes) > 0 ? 'ico-bad' : '';
+      $icon = '';
       foreach ($votes as $vote) {
         if ($vote->get_candidate()->id == $this->id) {
           switch ($vote->get_type()->id) {
-            case VoteType::NORMAL:
+            case VoteType::BAD:
+              $icon = 'ico-bad';
+              break;
+            case VoteType::GOOD:
               $icon = 'ico-good';
               break;
-            case VoteType::WINNER:
+            case VoteType::HEART:
               $icon = 'ico-heart';
               break;
           }

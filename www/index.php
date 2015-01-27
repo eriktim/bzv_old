@@ -31,7 +31,7 @@ if ($USER) {
     $date = $period->get_end_date();
     $countText = $period->get_vote_count_as_text();
     $message = '<div>Stemmen kan tot <b>' . $date . '</b>.<br>'
-        . 'Er gaa' . ($count == 1 ? 't' : 'n') . ' <b>' . $countText
+        . 'Er mogen maximaal <b>' . $countText
         . '</b> boer' . ($count == 1 ? '' : 'en')
         . ' door naar de volgende ronde. '
         . '<span id="help-toggle">[...]</span></div>'
