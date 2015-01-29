@@ -9,6 +9,24 @@ class User extends Base {
     return parent::get_value('name');
   }
 
+  public function get_points() {
+    $points = 0;
+    $periods = VotePeriod::get_all(2014);
+    foreach ($periods as $period) {
+      $points += $this->get_points_by_period($period);
+    }
+    return $points;
+  }
+
+  public function get_points_by_period($period) {
+    $points = 0;
+    $votes = Vote::get_by_user_in_period($this, $period);
+    foreach ($votes as $vote) {
+      $points += $vote->get_points();
+    }
+    return $points;
+  }
+
   public function get_year() {
     return (int) parent::get_value('year');
   }

@@ -13,6 +13,14 @@ class Candidate extends Base {
     return parent::get_object(Peasant::c());
   }
 
+  public function get_date_elimination() {
+    $date = parent::get_value('date_elimination');
+    if ($date) {
+      return strtotime($date);
+    }
+    return false;
+  }
+
   public function is_eliminated() {
     $date = parent::get_value('date_elimination');
     return !!$date;

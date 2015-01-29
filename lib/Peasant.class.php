@@ -9,6 +9,17 @@ class Peasant extends Base {
     return parent::get_value('name');
   }
 
+  public function get_winner() {
+    $candidates = $this->get_candidates();
+    $winners = array_filter($candidates, function($candidate) {
+      return !$candidate->is_eliminated();
+    });
+    if (count($winners) == 1) {
+      return $winners[0];
+    }
+    return false;
+  }
+
   public function as_html() {
     return '<div class="peasant pea' . $this->id . '">'
         . '<div class="badge icon"></div></div>';

@@ -29,6 +29,33 @@ class Vote extends Base {
     return parent::get_object(VotePeriod::c());
   }
 
+  public function get_points() {
+    $points = 0;
+    $candidate = $this->get_candidate();
+    $period = $this->get_period();
+    $type = $this->get_type();
+    if ($type->id === VoteType::HEART) {
+      $winner = $this->get_peasant()->get_winner();
+      if ($winner) {
+        if ($winner->id == $candidate->id) {
+          // add bonus points
+          $points += $period->get_vote_count();
+        }
+      }
+    }
+    if ($type->id === VoteType::BAD) {
+      $time = $candidate->get_date_elimination();
+      if ($time) {
+        $end = $period->get_date_end();
+        // eliminated within 24 hours after this period
+        if ($time < $end + 60 * 60 * 24) {
+          $points++;
+        }
+      }
+    }
+    return $points;
+  }
+
   public function get_type() {
     return parent::get_object(VoteType::c());
   }

@@ -92,6 +92,14 @@ body {
   display: inline-block;
 }
 
+ul.charts {
+  list-style: none;
+}
+
+ul.charts li.points {
+  font-size: x-large;
+}
+
 .user {
   position: absolute;
   right: 12px;
