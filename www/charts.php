@@ -19,8 +19,21 @@ require_once '../base.php';
 
 if ($USER) {
 
+  $voteCount = 0;
+  $period = VotePeriod::get_last();
+  if ($period) {
+    $peasants = Peasant::get_all(2014);
+    foreach ($peasants as $peasant) {
+      foreach ($peasant->get_candidates() as $candidate) {
+        if (!$candidate->is_eliminated()) {
+          $voteCount++;
+        }
+      }
+    }
+  }
   $users = User::get_all(2014);
   $charts = array();
+  $incomplete = array();
   foreach ($users as $user) {
     $points = $user->get_points();
     $name = $user->get_name();
@@ -28,6 +41,12 @@ if ($USER) {
       $charts[$points] = array();
     }
     $charts[$points][] = $name;
+    if ($period) {
+      $votes = Vote::get_by_user_in_period($user, $period);
+      if (count($votes) < $voteCount) {
+        $incomplete[] = $name;
+      }
+    }
   }
 
   krsort($charts);
@@ -35,6 +54,16 @@ if ($USER) {
     echo '<ul class="charts">';
     echo '<li class="points">' . $points . '</li>';
     foreach ($names as $name) {
+      echo '<li>' . $name . '</li>';
+    }
+    echo '</ul>';
+  }
+
+  if ($period && count($incomplete) > 0) {
+    sort($incomplete);
+    echo '<ul class="charts">';
+    echo '<li class="points">Niet compleet</li>';
+    foreach ($incomplete as $name) {
       echo '<li>' . $name . '</li>';
     }
     echo '</ul>';

@@ -60,6 +60,17 @@ class VotePeriod extends Base {
     return $periods[0];
   }
 
+  public static function get_last() {
+    $data = array('year' => date('Y') - 1);
+    $q = 'SELECT id FROM ' . self::TABLE_NAME . ' WHERE year=:year ORDER BY id DESC LIMIT 1';
+
+    $periods = parent::fetch_array($q, $data);
+    if (count($periods) > 0) {
+      return $periods[0];
+    }
+    return NULL;
+  }
+
   public static function get_all($year) {
     $data = array('year' => $year);
     $q = 'SELECT id FROM ' . self::TABLE_NAME . ' WHERE year=:year ORDER BY id';
