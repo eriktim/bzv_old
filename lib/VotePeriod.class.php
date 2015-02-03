@@ -14,7 +14,7 @@ class VotePeriod extends Base {
 
   private function _month_as_text($time) {
     $i = date('n', $time);
-    $months = array('januari', 'februari', 'maart', 'april', 'mei', 'juni',
+    $months = array('', 'januari', 'februari', 'maart', 'april', 'mei', 'juni',
         'july', 'augustus', 'september', 'oktober', 'november', 'december');
     return $months[$i];
   }
