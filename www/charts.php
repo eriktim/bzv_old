@@ -34,6 +34,7 @@ if ($USER) {
   $users = User::get_all(2014);
   $charts = array();
   $incomplete = array();
+  $complete = array();
   foreach ($users as $user) {
     $points = $user->get_points();
     $name = $user->get_name();
@@ -45,6 +46,8 @@ if ($USER) {
       $votes = Vote::get_by_user_in_period($user, $period);
       if (count($votes) < $voteCount) {
         $incomplete[] = $name;
+      } else {
+        $complete[] = $name;
       }
     }
   }
@@ -59,8 +62,15 @@ if ($USER) {
     echo '</ul>';
   }
 
-  if ($period && count($incomplete) > 0) {
+  if ($period) {
     sort($incomplete);
+    sort($complete);
+    echo '<ul class="charts">';
+    echo '<li class="points">Compleet</li>';
+    foreach ($complete as $name) {
+      echo '<li>' . $name . '</li>';
+    }
+    echo '</ul>';
     echo '<ul class="charts">';
     echo '<li class="points">Niet compleet</li>';
     foreach ($incomplete as $name) {
