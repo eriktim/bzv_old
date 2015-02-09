@@ -122,6 +122,7 @@ CREATE TABLE bzv_vote_periods (
     year smallint NOT NULL,
     date_start timestamp without time zone NOT NULL,
     date_end timestamp without time zone NOT NULL,
+    date_reference timestamp without time zone,
     vote_count smallint NOT NULL
 );
 

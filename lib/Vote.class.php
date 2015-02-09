@@ -30,9 +30,13 @@ class Vote extends Base {
   }
 
   public function get_points() {
+    $period = $this->get_period();
+    $time = $period->get_date_reference();
+    if (!$time) {
+      return 0;
+    }
     $points = 0;
     $candidate = $this->get_candidate();
-    $period = $this->get_period();
     $type = $this->get_type();
     if ($type->id === VoteType::HEART) {
       $winner = $this->get_peasant()->get_winner();
@@ -43,14 +47,15 @@ class Vote extends Base {
         }
       }
     }
-    if ($type->id === VoteType::BAD) {
-      $time = $candidate->get_date_elimination();
-      if ($time) {
-        $end = $period->get_date_end();
-        // eliminated within 24 hours after this period
-        if ($time < $end + 60 * 60 * 24) {
+    $eliminationTime = $candidate->get_date_elimination();
+    if ($eliminationTime) {
+      $bad = $type->id === VoteType::BAD;
+      if ($eliminationTime < $time) {
+        if ($bad) {
           $points++;
         }
+      } elseif (!$bad) {
+        $points++;
       }
     }
     return $points;

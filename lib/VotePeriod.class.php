@@ -36,6 +36,10 @@ class VotePeriod extends Base {
     return strtotime(parent::get_value('date_end'));
   }
 
+  public function get_date_reference() {
+    return strtotime(parent::get_value('date_reference'));
+  }
+
   public function get_end_date() {
     $time = $this->get_date_end();
     return $this->_day_as_text($time)
