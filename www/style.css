@@ -50,6 +50,20 @@ body {
   width: 33.33%;
 }
 
+.overview table {
+  margin: 0 auto;
+  border-collapse: collapse;
+}
+
+.overview table, td, th {
+    border: 1px solid black;
+}
+
+.overview td {
+  text-align: center;
+  vertical-align: middle;
+}
+
 .bzv { 
   width: 720px;
   margin: 60px auto;
