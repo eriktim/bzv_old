@@ -48,8 +48,8 @@ class Vote extends Base {
       }
     }
     $eliminationTime = $candidate->get_date_elimination();
+    $bad = $type->id === VoteType::BAD;
     if ($eliminationTime) {
-      $bad = $type->id === VoteType::BAD;
       if ($eliminationTime < $time) {
         if ($bad) {
           $points++;
@@ -57,6 +57,8 @@ class Vote extends Base {
       } elseif (!$bad) {
         $points++;
       }
+    } elseif (!$bad) {
+      $points++;
     }
     return $points;
   }
