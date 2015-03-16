@@ -47,9 +47,10 @@ if ($USER) {
         $votes = Vote::get_by_user_in_period($user, $period);
         foreach ($votes as $vote) {
           if ($vote->get_peasant()->id == $peasant->id) {
-            $pp = $vote->get_points();
-            $title .= $vote->get_candidate()->get_name() . ': ' . $pp . ' (C' . $vote->get_type()->id . ")\n";
-            $p += $pp;
+            $p0 = $vote->get_points();
+            $p1 = $vote->get_bonus_points();
+            $title .= $vote->get_candidate()->get_name() . ': ' . $p0 . ($p1 > 0 ? '+' . $p1 : '') . ' (C' . $vote->get_type()->id . ")\n";
+            $p += $p0; // /* disable bonus for now */ + $p1;
           }
         }
         echo '<td title="' . $title .'">' . ($p > 0 ? $p : '&nbsp;') . '</td>';

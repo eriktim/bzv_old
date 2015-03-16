@@ -29,14 +29,11 @@ class Vote extends Base {
     return parent::get_object(VotePeriod::c());
   }
 
-  public function get_points() {
-    $period = $this->get_period();
-    $time = $period->get_date_reference();
-    if (!$time) {
-      return 0;
-    }
+  // TODO bonus if no C3 vote
+  public function get_bonus_points() {
     $points = 0;
     $candidate = $this->get_candidate();
+    $period = $this->get_period();
     $type = $this->get_type();
     if ($type->id === VoteType::HEART) {
       $winner = $this->get_peasant()->get_winner();
@@ -47,6 +44,18 @@ class Vote extends Base {
         }
       }
     }
+    return $points;
+  }
+
+  public function get_points() {
+    $period = $this->get_period();
+    $time = $period->get_date_reference();
+    if (!$time) {
+      return 0;
+    }
+    $points = 0;
+    $candidate = $this->get_candidate();
+    $type = $this->get_type();
     $eliminationTime = $candidate->get_date_elimination();
     $bad = $type->id === VoteType::BAD;
     if ($eliminationTime) {
