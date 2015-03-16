@@ -38,7 +38,7 @@ if ($USER) {
   foreach ($users as $user) {
     $points = $user->get_points();
     $name = $user->get_name();
-    if (!$charts[$points]) {
+    if (!array_key_exists($points, $charts)) {
       $charts[$points] = array();
     }
     $charts[$points][] = $name;
