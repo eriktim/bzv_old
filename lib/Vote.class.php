@@ -68,7 +68,6 @@ class Vote extends Base {
   }
 
   public function update($data) {
-var_dump($data);
     global $db;
     $changes = array();
     foreach ($data as $key=>$value) {
