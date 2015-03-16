@@ -29,6 +29,10 @@ class Vote extends Base {
     return parent::get_object(VotePeriod::c());
   }
 
+  public function get_user() {
+    return parent::get_object(User::c());
+  }
+
   // TODO bonus if no C3 vote
   public function get_bonus_points() {
     $points = 0;
