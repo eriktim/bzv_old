@@ -44,16 +44,18 @@ if ($USER) {
       foreach ($users as $user) {
         $title = $user->get_name() . ' - ' . $peasant->get_name() . "\n\n";
         $p = 0;
+        $b = 0;
         $votes = Vote::get_by_user_in_period($user, $period);
         foreach ($votes as $vote) {
           if ($vote->get_peasant()->id == $peasant->id) {
             $p0 = $vote->get_points();
             $p1 = $vote->get_bonus_points();
             $title .= $vote->get_candidate()->get_name() . ': ' . $p0 . ($p1 > 0 ? '+' . $p1 : '') . ' (C' . $vote->get_type()->id . ")\n";
-            $p += $p0; // /* disable bonus for now */ + $p1;
+            $p += $p0;
+            $b += $p1; // not included for now
           }
         }
-        echo '<td title="' . $title .'">' . ($p > 0 ? $p : '&nbsp;') . '</td>';
+        echo '<td title="' . $title .'">' . ($p > 0 ? $p . ($b > 0 ? '+' . $b : '') : '&nbsp;') . '</td>';
       }
       echo '</tr>';
     }
