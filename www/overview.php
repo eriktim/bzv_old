@@ -32,6 +32,7 @@ if ($USER) {
     $points[$name] = 0;
     echo '<td>' . $name . '</td>';
   }
+  unset($name);
   echo '</tr>';
   foreach ($periods as $period) {
     $span = '<td rowspan="' . (count($peasants) + 1) . '">' . $period->get_end_date() . '</td>';
