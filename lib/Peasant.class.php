@@ -15,7 +15,7 @@ class Peasant extends Base {
       return !$candidate->is_eliminated();
     });
     if (count($winners) == 1) {
-      return $winners[0];
+      return array_shift($winners);
     }
     return false;
   }
