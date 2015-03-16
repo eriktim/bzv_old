@@ -42,14 +42,17 @@ if ($USER) {
       $span = '';
       echo '<td>' . $peasant->get_name() . '</td>';
       foreach ($users as $user) {
+        $title = $user->get_name() . ' - ' . $peasant->get_name() . "\n\n";
         $p = 0;
         $votes = Vote::get_by_user_in_period($user, $period);
         foreach ($votes as $vote) {
           if ($vote->get_peasant()->id == $peasant->id) {
-            $p += $vote->get_points();
+            $pp = $vote->get_points();
+            $title .= $vote->get_candidate()->get_name() . ': ' . $pp . "\n";
+            $p += $pp;
           }
         }
-        echo '<td>' . ($p > 0 ? $p : '&nbsp;') . '</td>';
+        echo '<td title="' . $title .'">' . ($p > 0 ? $p : '&nbsp;') . '</td>';
       }
       echo '</tr>';
     }
