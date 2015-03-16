@@ -48,7 +48,7 @@ if ($USER) {
         foreach ($votes as $vote) {
           if ($vote->get_peasant()->id == $peasant->id) {
             $pp = $vote->get_points();
-            $title .= $vote->get_candidate()->get_name() . ': ' . $pp . "\n";
+            $title .= $vote->get_candidate()->get_name() . ': ' . $pp . ' (C' . $vote->get_type()->id . ")\n";
             $p += $pp;
           }
         }
