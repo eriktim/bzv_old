@@ -21,9 +21,34 @@ class User extends Base {
   public function get_points_by_period($period) {
     $points = 0;
     $votes = Vote::get_by_user_in_period($this, $period);
+    $bonusPoints = $period->get_vote_count();
+    $hearts = [];
     foreach ($votes as $vote) {
       $points += $vote->get_points();
+      if ($vote->get_type()->id == VoteType::HEART) {
+        $hearts[] = $vote->get_candidate();
+      }
     }
+
+    // bonus points
+    $year = $period->get_year();
+    $peasants = Peasant::get_all($year);
+    foreach ($peasants as $peasant) {
+      $winner = $peasant->get_winner();
+      $noHeart = true;
+      foreach ($hearts as $heart) {
+        if ($peasant->id == $heart->get_peasant()->id) {
+          $noHeart = false;
+          if ($winner->id == $heart->id) {
+            $points += $bonusPoints;
+          }
+        }
+      }
+      if ($noHeart && !$winner) {
+        $points += $bonusPoints;
+      }
+    }
+
     return $points;
   }
 

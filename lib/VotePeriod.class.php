@@ -48,6 +48,10 @@ class VotePeriod extends Base {
         . date(', G:i', $time);
   }
 
+  public function get_year() {
+    return (int) parent::get_value('year');
+  }
+
   public function as_html() {
     return '<div class="peasant pea' . $this->id . '">'
         . '<div class="icon ico-warning"></div></div>';

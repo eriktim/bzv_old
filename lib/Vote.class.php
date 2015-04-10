@@ -33,24 +33,6 @@ class Vote extends Base {
     return parent::get_object(User::c());
   }
 
-  // TODO bonus if no C3 vote
-  public function get_bonus_points() {
-    $points = 0;
-    $candidate = $this->get_candidate();
-    $period = $this->get_period();
-    $type = $this->get_type();
-    if ($type->id === VoteType::HEART) {
-      $winner = $this->get_peasant()->get_winner();
-      if ($winner) {
-        if ($winner->id == $candidate->id) {
-          // add bonus points
-          $points += $period->get_vote_count();
-        }
-      }
-    }
-    return $points;
-  }
-
   public function get_points() {
     $period = $this->get_period();
     $time = $period->get_date_reference();
