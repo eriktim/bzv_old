@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding= "UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+<mapper namespace="data-mapper">
+    <select id="selectAllPeasants" resultType="nl.gingerik.bzv.model.Peasant">
+        select * from bzv_peasants order by id asc
+    </select>
+ 
+    <select id="selectPeasant" resultType="nl.gingerik.bzv.model.Peasant">
+        select * from bzv_peasants where id = #{id}
+    </select>
+ 
+    <insert id="insertPeasant" parameterType="nl.gingerik.bzv.model.Peasant">
+        insert into bzv_peasants (year, name) values (#{year}, #{name})
+    </insert>
+ 
+    <update id="updatePeasant" parameterType="nl.gingerik.bzv.model.Peasant">
+        update bzv_peasants set year=#{year}, name=#{name} where id=#{id}
+    </update>
+ 
+    <delete id="deletePeasant" parameterType="int">
+        delete from bzv_peasants where id = #{id}
+    </delete>
+    
+    
+    <select id="selectAllCandidates" resultType="nl.gingerik.bzv.model.Candidate">
+        select * from bzv_candidates order by id asc
+    </select>
+ 
+    <select id="selectCandidate" resultType="nl.gingerik.bzv.model.Candidate">
+        select * from bzv_candidates where id = #{id}
+    </select>
+ 
+    <insert id="insertCandidate" parameterType="nl.gingerik.bzv.model.Candidate">
+        insert into bzv_candidates (peasantid, name, date_elimination) values (#{peasantId}, #{name}, #{dateElimination})
+    </insert>
+ 
+    <update id="updateCandidate" parameterType="nl.gingerik.bzv.model.Candidate">
+        update bzv_candidates set peasantid=#{peasantId}, name=#{name}, date_elimination=#{dateElimination} where id=#{id}
+    </update>
+ 
+    <delete id="deleteCandidate" parameterType="int">
+        delete from bzv_candidates where id = #{id}
+    </delete>
+</mapper>
