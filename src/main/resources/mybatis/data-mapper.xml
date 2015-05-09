@@ -3,12 +3,13 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
 <mapper namespace="data-mapper">
+    <!-- PEASANT -->
     <select id="selectAllPeasants" resultType="nl.gingerik.bzv.model.Peasant">
         select * from bzv_peasants order by id asc
     </select>
  
     <select id="selectPeasant" resultType="nl.gingerik.bzv.model.Peasant">
-        select * from bzv_peasants where id = #{id}
+        select * from bzv_peasants where id=#{id}
     </select>
  
     <insert id="insertPeasant" parameterType="nl.gingerik.bzv.model.Peasant">
@@ -20,10 +21,10 @@
     </update>
  
     <delete id="deletePeasant" parameterType="int">
-        delete from bzv_peasants where id = #{id}
+        delete from bzv_peasants where id=#{id}
     </delete>
     
-    
+    <!-- CANDIDATE -->
     <select id="selectAllCandidates" resultType="nl.gingerik.bzv.model.Candidate">
         select * from bzv_candidates order by id asc
     </select>
@@ -33,14 +34,106 @@
     </select>
  
     <insert id="insertCandidate" parameterType="nl.gingerik.bzv.model.Candidate">
-        insert into bzv_candidates (peasantid, name, date_elimination) values (#{peasantId}, #{name}, #{dateElimination})
+        insert into bzv_candidates (peasantid, name, date_elimination)
+        		values (#{peasantId}, #{name}, #{dateElimination})
     </insert>
  
     <update id="updateCandidate" parameterType="nl.gingerik.bzv.model.Candidate">
-        update bzv_candidates set peasantid=#{peasantId}, name=#{name}, date_elimination=#{dateElimination} where id=#{id}
+        update bzv_candidates set peasantid=#{peasantId}, name=#{name},
+        		date_elimination=#{dateElimination} where id=#{id}
     </update>
  
     <delete id="deleteCandidate" parameterType="int">
-        delete from bzv_candidates where id = #{id}
+        delete from bzv_candidates where id=#{id}
+    </delete>
+    
+    <!-- USER -->
+    <select id="selectAllUsers" resultType="nl.gingerik.bzv.model.User">
+        select * from bzv_users order by id asc
+    </select>
+ 
+    <select id="selectUser" resultType="nl.gingerik.bzv.model.User">
+        select * from bzv_users where id=#{id}
+    </select>
+ 
+    <insert id="insertUser" parameterType="nl.gingerik.bzv.model.User">
+        insert into bzv_users (year, name, email, hash)
+        		values (#{year}, #{name}, #{email}, #{hash})
+    </insert>
+ 
+    <update id="updateUser" parameterType="nl.gingerik.bzv.model.User">
+        update bzv_users set year=#{year}, name=#{name}, email=#{email},
+        		hash=#{hash} where id=#{id}
+    </update>
+ 
+    <delete id="deleteUser" parameterType="int">
+        delete from bzv_users where id=#{id}
+    </delete>
+    
+    <!-- VOTE -->
+    <select id="selectAllVotes" resultType="nl.gingerik.bzv.model.Vote">
+        select * from bzv_votes order by id asc
+    </select>
+ 
+    <select id="selectVote" resultType="nl.gingerik.bzv.model.Vote">
+        select * from bzv_votes where id=#{id}
+    </select>
+ 
+    <insert id="insertVote" parameterType="nl.gingerik.bzv.model.Vote">
+        insert into bzv_votes (userid, candidateid, dateVoted, typeid, votePeriodid)
+        		values (#{userid}, #{candidateid}, #{dateVoted}, #{typeid}, #{votePeriodid})
+    </insert>
+ 
+    <update id="updateVote" parameterType="nl.gingerik.bzv.model.Vote">
+        update bzv_votes set userid=#{userid}, candidateid=#{candidateid}, dateVoted=#{dateVoted},
+        		typeid=#{typeid}, votePeriodid=#{votePeriodid} where id=#{id}
+    </update>
+ 
+    <delete id="deleteVote" parameterType="int">
+        delete from bzv_votes where id=#{id}
+    </delete>
+    
+    <!-- VOTE_PERIOD -->
+    <select id="selectAllVotePeriods" resultType="nl.gingerik.bzv.model.VotePeriod">
+        select * from bzv_vote_periods order by id asc
+    </select>
+ 
+    <select id="selectVotePeriod" resultType="nl.gingerik.bzv.model.VotePeriod">
+        select * from bzv_vote_periods where id=#{id}
+    </select>
+ 
+    <insert id="insertVotePeriod" parameterType="nl.gingerik.bzv.model.VotePeriod">
+        insert into bzv_vote_periods (year, dateStart, dateEnd, dateReference, voteCount)
+        		values (#{year}, #{dateStart}, #{dateEnd}, #{dateReference}, #{voteCount})
+    </insert>
+ 
+    <update id="updateVotePeriod" parameterType="nl.gingerik.bzv.model.VotePeriod">
+        update bzv_vote_periods set year=#{year}, dateStart=#{dateStart}, dateEnd=#{dateEnd},
+        		dateReference=#{dateReference}, voteCount=#{voteCount} where id=#{id}
+    </update>
+ 
+    <delete id="deleteVotePeriod" parameterType="int">
+        delete from bzv_vote_periods where id=#{id}
+    </delete>
+    
+    <!-- VOTE_TYPE -->
+    <select id="selectAllVoteTypes" resultType="nl.gingerik.bzv.model.VoteType">
+        select * from bzv_vote_types order by id asc
+    </select>
+ 
+    <select id="selectVoteType" resultType="nl.gingerik.bzv.model.VoteType">
+        select * from bzv_vote_types where id=#{id}
+    </select>
+ 
+    <insert id="insertVoteType" parameterType="nl.gingerik.bzv.model.VoteType">
+        insert into bzv_vote_types (name) values (#{name})
+    </insert>
+ 
+    <update id="updateVoteType" parameterType="nl.gingerik.bzv.model.VoteType">
+        update bzv_vote_types set name=#{name} where id=#{id}
+    </update>
+ 
+    <delete id="deleteVoteType" parameterType="int">
+        delete from bzv_vote_types where id=#{id}
     </delete>
 </mapper>
