@@ -37,7 +37,7 @@ CREATE TABLE bzv_candidates (
     id integer DEFAULT nextval('bzv_candidates_id_seq'::regclass) NOT NULL,
     peasantid integer NOT NULL,
     name character varying NOT NULL,
-    date_elimination timestamp without time zone
+    dateElimination timestamp with time zone
 );
 
 
@@ -120,10 +120,10 @@ ALTER TABLE bzv_vote_periods_id_seq OWNER TO bzv_user;
 CREATE TABLE bzv_vote_periods (
     id integer DEFAULT nextval('bzv_vote_periods_id_seq'::regclass) NOT NULL,
     year smallint NOT NULL,
-    date_start timestamp without time zone NOT NULL,
-    date_end timestamp without time zone NOT NULL,
-    date_reference timestamp without time zone,
-    vote_count smallint NOT NULL
+    dateStart timestamp with time zone NOT NULL,
+    dateEnd timestamp with time zone NOT NULL,
+    dateReference timestamp with time zone,
+    voteCount smallint NOT NULL
 );
 
 
@@ -177,9 +177,9 @@ CREATE TABLE bzv_votes (
     id integer DEFAULT nextval('bzv_votes_id_seq'::regclass) NOT NULL,
     userid integer NOT NULL,
     candidateid integer NOT NULL,
-    vote_periodid integer NOT NULL,
-    date_voted timestamp without time zone NOT NULL,
-    typeid smallint NOT NULL
+    votePeriodid integer NOT NULL,
+    dateVoted timestamp with time zone NOT NULL,
+    voteTypeid smallint NOT NULL
 );
 
 
@@ -238,7 +238,7 @@ ALTER TABLE ONLY bzv_votes
 --
 
 ALTER TABLE ONLY bzv_votes
-    ADD CONSTRAINT bzv_votes_userid_candidateid_vote_periodid_key UNIQUE (userid, candidateid, vote_periodid);
+    ADD CONSTRAINT bzv_votes_userid_candidateid_vote_periodid_key UNIQUE (userid, candidateid, votePeriodid);
 
 
 --
@@ -262,7 +262,7 @@ ALTER TABLE ONLY bzv_votes
 --
 
 ALTER TABLE ONLY bzv_votes
-    ADD CONSTRAINT bzv_votes_typeid_fkey FOREIGN KEY (typeid) REFERENCES bzv_vote_types(id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+    ADD CONSTRAINT bzv_votes_votetypeid_fkey FOREIGN KEY (voteTypeid) REFERENCES bzv_vote_types(id) ON UPDATE RESTRICT ON DELETE RESTRICT;
 
 
 --
@@ -278,7 +278,7 @@ ALTER TABLE ONLY bzv_votes
 --
 
 ALTER TABLE ONLY bzv_votes
-    ADD CONSTRAINT bzv_votes_vote_periodid_fkey FOREIGN KEY (vote_periodid) REFERENCES bzv_vote_periods(id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+    ADD CONSTRAINT bzv_votes_vote_periodid_fkey FOREIGN KEY (votePeriodid) REFERENCES bzv_vote_periods(id) ON UPDATE RESTRICT ON DELETE RESTRICT;
 
 
 --
