@@ -3,8 +3,8 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.springframework</groupId>
-    <artifactId>gs-rest-service</artifactId>
+    <groupId>nl.gingerik</groupId>
+    <artifactId>bzv</artifactId>
     <version>0.1.0</version>
 
     <parent>
@@ -27,6 +27,45 @@
         	<groupId>org.springframework.boot</groupId>
         	<artifactId>spring-boot-starter-jdbc</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId> 
+            <artifactId>spring-core</artifactId>
+        </dependency> 
+        <dependency> 
+            <groupId>org.springframework</groupId> 
+            <artifactId>spring-context</artifactId> 
+        </dependency> 
+        <dependency> 
+            <groupId>org.springframework</groupId> 
+            <artifactId>spring-tx</artifactId> 
+        </dependency> 
+        <dependency> 
+            <groupId>org.springframework</groupId> 
+            <artifactId>spring-orm</artifactId> 
+        </dependency>
+        <dependency> 
+            <groupId>org.hibernate</groupId> 
+            <artifactId>hibernate-core</artifactId>
+            <version>4.3.9.Final</version> 
+       </dependency>
+       <dependency> 
+            <groupId>geronimo-spec</groupId> 
+            <artifactId>geronimo-spec-jta</artifactId>
+            <version>1.0-M1</version>
+       </dependency> 
+       <dependency> 
+            <groupId>c3p0</groupId> 
+            <artifactId>c3p0</artifactId>
+            <version>0.9.1.2</version>
+       </dependency> 
+       <dependency> 
+            <groupId>org.slf4j</groupId> 
+            <artifactId>slf4j-log4j12</artifactId> 
+       </dependency> 
+       <dependency> 
+            <groupId>com.h2database</groupId> 
+            <artifactId>h2</artifactId> 
+       </dependency>
     </dependencies>
 
     <properties>
