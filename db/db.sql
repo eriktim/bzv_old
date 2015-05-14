@@ -37,7 +37,7 @@ CREATE TABLE bzv_candidates (
     id integer DEFAULT nextval('bzv_candidates_id_seq'::regclass) NOT NULL,
     peasantid integer NOT NULL,
     name character varying NOT NULL,
-    dateElimination timestamp with time zone
+    date_elimination timestamp with time zone
 );
 
 
