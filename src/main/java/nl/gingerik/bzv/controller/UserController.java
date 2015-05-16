@@ -2,6 +2,7 @@ package nl.gingerik.bzv.controller;
 
 import java.util.List;
 
+import nl.gingerik.bzv.controller.ExceptionHandlingController.ResourceNotFoundException;
 import nl.gingerik.bzv.dao.UserDao;
 import nl.gingerik.bzv.model.User;
 
@@ -24,6 +25,10 @@ public class UserController {
 
     @RequestMapping(value="/user/{userId}", method=RequestMethod.GET)
     public User getById(@PathVariable("userId") long userId) {
-		return userDao.get(userId);
+		User user = userDao.get(userId);
+		if (user == null) {
+			throw new ResourceNotFoundException();
+		}
+		return user;
     }
 }

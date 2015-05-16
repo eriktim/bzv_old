@@ -2,6 +2,7 @@ package nl.gingerik.bzv.controller;
 
 import java.util.List;
 
+import nl.gingerik.bzv.controller.ExceptionHandlingController.ResourceNotFoundException;
 import nl.gingerik.bzv.dao.VoteTypeDao;
 import nl.gingerik.bzv.model.VoteType;
 
@@ -24,6 +25,10 @@ public class VoteTypeController {
 
     @RequestMapping(value="/vote/type/{voteTypeId}", method=RequestMethod.GET)
     public VoteType getById(@PathVariable("voteTypeId") long voteTypeId) {
-		return voteTypeDao.get(voteTypeId);
+		VoteType voteType = voteTypeDao.get(voteTypeId);
+		if (voteType == null) {
+			throw new ResourceNotFoundException();
+		}
+		return voteType;
     }
 }

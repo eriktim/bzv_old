@@ -2,6 +2,7 @@ package nl.gingerik.bzv.controller;
 
 import java.util.List;
 
+import nl.gingerik.bzv.controller.ExceptionHandlingController.ResourceNotFoundException;
 import nl.gingerik.bzv.dao.PeasantDao;
 import nl.gingerik.bzv.model.Peasant;
 
@@ -24,6 +25,10 @@ public class PeasantController {
 
     @RequestMapping(value="/peasant/{peasantId}", method=RequestMethod.GET)
     public Peasant getById(@PathVariable("peasantId") long peasantId) {
-		return peasantDao.get(peasantId);
+		Peasant peasant = peasantDao.get(peasantId);
+		if (peasant == null) {
+			throw new ResourceNotFoundException();
+		}
+		return peasant;
     }
 }
