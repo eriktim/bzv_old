@@ -2,36 +2,63 @@ package nl.gingerik.bzv.model;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="bzv_votes")
 public class Vote {
 
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
-    private long userId;
-    private long candidateId;
+
+    @ManyToOne
+    @JoinColumn(name="userid")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name="candidateid")
+    private Candidate candidate;
+
+    @Column(name="date_voted")
     private Date dateVoted;
-    private long voteTypeId;
-    private long votePeriodId;
+
+    @ManyToOne
+    @JoinColumn(name="vote_typeid")
+    private VoteType voteType;
+
+    @ManyToOne
+    @JoinColumn(name="vote_periodid")
+    private VotePeriod votePeriod;
 
     public long getId() {
         return id;
     }
     
-    public long getUserId() {
-    	return userId;
+    public User getUser() {
+    	return user;
     }
     
-    public long getCandidateId() {
-    	return candidateId;
+    public Candidate getCandidate() {
+    	return candidate;
     }
 
     public Date getDateVoted() {
         return dateVoted;
     }
     
-    public long getVoteTypeId() {
-    	return voteTypeId;
+    public VoteType getVoteType() {
+    	return voteType;
     }
     
-    public long getVotePeriodId() {
-    	return votePeriodId;
+    public VotePeriod getVotePeriod() {
+    	return votePeriod;
     }
 }
