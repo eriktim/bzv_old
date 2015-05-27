@@ -10,6 +10,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name="bzv_vote_types")
 public class VoteType {
+	
+	public enum Name {
+		HEARTH,
+		GOOD,
+		BAD
+	}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

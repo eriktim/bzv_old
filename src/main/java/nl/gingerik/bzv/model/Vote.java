@@ -1,6 +1,6 @@
 package nl.gingerik.bzv.model;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,11 +9,17 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.PostLoad;
 import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import org.apache.log4j.Logger;
 
 @Entity
 @Table(name="bzv_votes")
 public class Vote {
+	
+	private static final Logger log = Logger.getLogger(Vote.class);
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -37,6 +43,33 @@ public class Vote {
     @ManyToOne
     @JoinColumn(name="vote_periodid")
     private VotePeriod votePeriod;
+    
+    @Transient
+    private int points;
+    
+    @PostLoad
+    private void updatePoints() {
+    	points = 99;
+    	if (!isValid()) {
+        	log.warn("Invalid vote: " + id);
+    		return;
+    	}
+    	Date dateElimination = candidate.getDateElimination();
+    	Date dateReference = votePeriod.getDateReference();
+    	boolean isEliminated = dateElimination != null &&
+    			dateElimination.before(dateReference) &&
+    			dateElimination.after(votePeriod.getDateStart());
+    	boolean votedElimination = VoteType.Name.BAD.name().equals(voteType.getName());
+		if (isEliminated == votedElimination) {
+			points++;
+		}
+    }
+    
+    private boolean isValid() {
+    	Date dateVoted = getDateVoted();
+    	return dateVoted.after(votePeriod.getDateStart()) &&
+    			dateVoted.before(votePeriod.getDateEnd());
+    }
 
     public long getId() {
         return id;
@@ -60,5 +93,9 @@ public class Vote {
     
     public VotePeriod getVotePeriod() {
     	return votePeriod;
+    }
+    
+    public int getPoints() {
+    	return points;
     }
 }

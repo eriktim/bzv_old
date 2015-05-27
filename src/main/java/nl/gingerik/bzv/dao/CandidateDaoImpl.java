@@ -1,42 +1,42 @@
 package nl.gingerik.bzv.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import nl.gingerik.bzv.model.Candidate;
 
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository(value="candidateDao")
 @Transactional
 public class CandidateDaoImpl implements CandidateDao {
-	
-	@Autowired
-    private SessionFactory sessionFactory;
+
+    @PersistenceContext(unitName="punit")
+    private EntityManager entityManager;
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public List<Candidate> list() {
-		return (List<Candidate>) sessionFactory.getCurrentSession().createCriteria(Candidate.class).list();
+		return new ArrayList<Candidate>();//entityManager.find(Candidate.class).getResultList();
 	}
 	
 	@Override
 	public Candidate get(long candidateId) {
-		return (Candidate) sessionFactory.getCurrentSession().get(Candidate.class, candidateId);
+		return entityManager.find(Candidate.class, candidateId);
 	}
 
 	@Override
 	public Candidate save(Candidate candidate) {
-		sessionFactory.getCurrentSession().saveOrUpdate(candidate);
+		entityManager.persist(candidate);
 		return candidate;
 	}
 
 	@Override
 	public void delete(Candidate candidate) {
-		sessionFactory.getCurrentSession().delete(candidate);
+		entityManager.remove(candidate);
 	}
 
 }

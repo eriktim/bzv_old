@@ -1,42 +1,42 @@
 package nl.gingerik.bzv.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 
 import nl.gingerik.bzv.model.VotePeriod;
 
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository(value="votePeriodDao")
 @Transactional
 public class VotePeriodDaoImpl implements VotePeriodDao {
-	
-	@Autowired
-    private SessionFactory sessionFactory;
+
+    @PersistenceContext(unitName="punit")
+    private EntityManager entityManager;
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public List<VotePeriod> list() {
-		return (List<VotePeriod>) sessionFactory.getCurrentSession().createCriteria(VotePeriod.class).list();
+		return new ArrayList<VotePeriod>();// sessionFactory.getCurrentSession().createCriteria(VotePeriod.class).list();
 	}
 	
 	@Override
 	public VotePeriod get(long votePeriodId) {
-		return (VotePeriod) sessionFactory.getCurrentSession().get(VotePeriod.class, votePeriodId);
+		return entityManager.find(VotePeriod.class, votePeriodId);
 	}
 
 	@Override
 	public VotePeriod save(VotePeriod votePeriod) {
-		sessionFactory.getCurrentSession().saveOrUpdate(votePeriod);
+		entityManager.persist(votePeriod);
 		return votePeriod;
 	}
 
 	@Override
 	public void delete(VotePeriod votePeriod) {
-		sessionFactory.getCurrentSession().delete(votePeriod);
+		entityManager.remove(votePeriod);
 	}
 
 }
