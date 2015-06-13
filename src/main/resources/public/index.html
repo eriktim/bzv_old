@@ -1,0 +1,116 @@
+<!doctype html>
+<html ng-app="bzvApp">
+	<head>
+		<title>BZV REST Server</title>
+		<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
+		<script src="lib/angular/angular.min.js"></script>
+		<script src="lib/jquery/jquery-2.1.4.min.js"></script>
+		<script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    	<script src="js/app.js"></script>
+	</head>
+
+	<body>
+		<ul class="nav nav-tabs">
+			<li role="presentation" class="active"><a href="#" aria-controls="info" role="tab" data-toggle="tab">Info</a></li>
+			<li role="presentation"><a href="#peasants" aria-controls="peasants" role="tab" data-toggle="tab">Peasants</a></li>
+			<li role="presentation"><a href="#candidates" aria-controls="candidates" role="tab" data-toggle="tab">Candidates</a></li>
+			<li role="presentation"><a href="#votes" aria-controls="votes" role="tab" data-toggle="tab">Votes</a></li>
+			<li role="presentation"><a href="#votePeriods" aria-controls="votePeriods" role="tab" data-toggle="tab">VotePeriods</a></li>
+			<li role="presentation"><a href="#voteTypes" aria-controls="voteTypes" role="tab" data-toggle="tab">VoteTypes</a></li>
+			<li role="presentation"><a href="#users" aria-controls="users" role="tab" data-toggle="tab">Users</a></li>
+		</ul>
+		<div class="tab-content">
+			<div role="tabpanel" class="tab-pane active" id="info">
+				TODO
+			</div>
+			<div role="tabpanel" class="tab-pane" id="peasants">
+				<table class="table table-bordered table-striped" ng-controller="peasants">
+					<thead>
+						<th>Year</th>
+						<th>Name</th>
+					</thead>
+					<tr ng-repeat="peasant in peasants">
+						<td>{{peasant.year}}</td>
+						<td>{{peasant.name}}</td>
+					</tr>
+				</table>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="candidates">
+				<table class="table table-bordered table-striped" ng-controller="candidates">
+					<thead>
+						<th>Name</th>
+						<th>Peasant</th>
+						<th>Eliminated</th>
+					</thead>
+					<tr ng-repeat="candidate in candidates">
+						<td>{{candidate.name}}</td>
+						<td>{{candidate.peasant}}</td>
+						<td>{{candidate.dateElimination | limitTo:10}}</td>
+					</tr>
+				</table>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="votes">
+				<table class="table table-bordered table-striped" ng-controller="votes">
+					<thead>
+						<th>Date</th>
+						<th>User</th>
+						<th>Candidate</th>
+						<th>Period</th>
+						<th>Type</th>
+						<th>Points</th>
+					</thead>
+					<tr ng-repeat="vote in votes">
+						<td>{{vote.dateVoted | limitTo:10}}</td>
+						<td>{{vote.user}}</td>
+						<td>{{vote.candidate}}</td>
+						<td>{{vote.period}}</td>
+						<td>{{vote.type}}</td>
+						<td>{{vote.points}}</td>
+					</tr>
+				</table>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="votePeriods">
+				<table class="table table-bordered table-striped" ng-controller="votePeriods">
+					<thead>
+						<th>Year</th>
+						<th>Start</th>
+						<th>End</th>
+						<th>Reference</th>
+						<th>Count</th>
+					</thead>
+					<tr ng-repeat="votePeriod in votePeriods">
+						<td>{{votePeriod.year}}</td>
+						<td>{{votePeriod.dateStart | limitTo:10}}</td>
+						<td>{{votePeriod.dateEnd | limitTo:10}}</td>
+						<td>{{votePeriod.dateReference | limitTo:10}}</td>
+						<td>{{votePeriod.voteCount}}</td>
+					</tr>
+				</table>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="voteTypes">
+				<table class="table table-bordered table-striped" ng-controller="voteTypes">
+					<thead>
+						<th>Name</th>
+					</thead>
+					<tr ng-repeat="voteType in voteTypes">
+						<td>{{voteType.name}}</td>
+					</tr>
+				</table>
+			</div>
+			<div role="tabpanel" class="tab-pane" id="users">
+				<table class="table table-bordered table-striped" ng-controller="users">
+					<thead>
+						<th>Year</th>
+						<th>Name</th>
+						<th>Email</th>
+					</thead>
+					<tr ng-repeat="user in users">
+						<td>{{user.year}}</td>
+						<td>{{user.name}}</td>
+						<td>{{user.email}}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</body>
+</html>
