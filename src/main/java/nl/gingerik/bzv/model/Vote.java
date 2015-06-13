@@ -49,7 +49,6 @@ public class Vote {
     
     @PostLoad
     private void updatePoints() {
-    	points = 99;
     	if (!isValid()) {
         	log.warn("Invalid vote: " + id);
     		return;
