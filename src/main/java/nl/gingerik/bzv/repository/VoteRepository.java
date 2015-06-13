@@ -2,8 +2,10 @@ package nl.gingerik.bzv.repository;
 
 import nl.gingerik.bzv.model.Vote;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-public interface VoteRepository extends CrudRepository<Vote, Long> {
+@RepositoryRestResource(collectionResourceRel="vote", path="vote")
+public interface VoteRepository extends PagingAndSortingRepository<Vote, Long> {
 
 }
