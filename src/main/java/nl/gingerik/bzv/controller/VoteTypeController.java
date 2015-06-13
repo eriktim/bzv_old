@@ -1,10 +1,8 @@
 package nl.gingerik.bzv.controller;
 
-import java.util.List;
-
 import nl.gingerik.bzv.controller.ExceptionHandlingController.ResourceNotFoundException;
-import nl.gingerik.bzv.dao.VoteTypeDao;
 import nl.gingerik.bzv.model.VoteType;
+import nl.gingerik.bzv.repository.VoteTypeRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,16 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class VoteTypeController {
 
     @Autowired
-    private VoteTypeDao voteTypeDao;
+    private VoteTypeRepository voteTypeRepository;
 
     @RequestMapping(value="/vote/type", method=RequestMethod.GET)
-    public List<VoteType> getList() {
-		return voteTypeDao.list();
+    public Iterable<VoteType> getList() {
+		return voteTypeRepository.findAll();
     }
 
     @RequestMapping(value="/vote/type/{voteTypeId}", method=RequestMethod.GET)
     public VoteType getById(@PathVariable("voteTypeId") long voteTypeId) {
-		VoteType voteType = voteTypeDao.get(voteTypeId);
+		VoteType voteType = voteTypeRepository.findOne(voteTypeId);
 		if (voteType == null) {
 			throw new ResourceNotFoundException();
 		}

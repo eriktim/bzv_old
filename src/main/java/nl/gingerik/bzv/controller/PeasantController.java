@@ -1,10 +1,8 @@
 package nl.gingerik.bzv.controller;
 
-import java.util.List;
-
 import nl.gingerik.bzv.controller.ExceptionHandlingController.ResourceNotFoundException;
-import nl.gingerik.bzv.dao.PeasantDao;
 import nl.gingerik.bzv.model.Peasant;
+import nl.gingerik.bzv.repository.PeasantRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,16 +14,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class PeasantController {
 	
     @Autowired
-    private PeasantDao peasantDao;
+    private PeasantRepository peasantRepository;
 
     @RequestMapping(value="/peasant", method=RequestMethod.GET)
-    public List<Peasant> getList() {
-		return peasantDao.list();
+    public Iterable<Peasant> getList() {
+		return peasantRepository.findAll();
     }
 
     @RequestMapping(value="/peasant/{peasantId}", method=RequestMethod.GET)
     public Peasant getById(@PathVariable("peasantId") long peasantId) {
-		Peasant peasant = peasantDao.get(peasantId);
+		Peasant peasant = peasantRepository.findOne(peasantId);
 		if (peasant == null) {
 			throw new ResourceNotFoundException();
 		}
