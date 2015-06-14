@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.springframework.data.rest.core.annotation.RestResource;
+
 @Entity
 @Table(name="bzv_candidates")
 public class Candidate {
@@ -21,6 +23,7 @@ public class Candidate {
 	
     @ManyToOne
     @JoinColumn(name="peasantid")
+    @RestResource(exported=false)
     private Peasant peasant;
     
     private String name;

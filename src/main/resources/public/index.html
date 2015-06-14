@@ -4,8 +4,6 @@
 		<title>BZV REST Server</title>
 		<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet"></link>
 		<script src="lib/angular/angular.min.js"></script>
-		<script src="lib/angular/angular-resource.min.js"></script>
-		<script src="lib/angular-spring-data-rest/angular-spring-data-rest.min.js"></script>
 		<script src="lib/jquery/jquery-2.1.4.min.js"></script>
 		<script src="lib/bootstrap/js/bootstrap.min.js"></script>
     	<script src="js/app.js"></script>
@@ -28,10 +26,12 @@
 			<div role="tabpanel" class="tab-pane" id="peasants">
 				<table class="table table-bordered table-striped" ng-controller="peasants">
 					<thead>
+						<th>ID</th>
 						<th>Year</th>
 						<th>Name</th>
 					</thead>
 					<tr ng-repeat="peasant in peasants">
+						<td>{{peasant.id}}</td>
 						<td>{{peasant.year}}</td>
 						<td>{{peasant.name}}</td>
 					</tr>
@@ -40,13 +40,15 @@
 			<div role="tabpanel" class="tab-pane" id="candidates">
 				<table class="table table-bordered table-striped" ng-controller="candidates">
 					<thead>
+						<th>ID</th>
 						<th>Name</th>
 						<th>Peasant</th>
 						<th>Eliminated</th>
 					</thead>
 					<tr ng-repeat="candidate in candidates">
+						<td>{{candidate.id}}</td>
 						<td>{{candidate.name}}</td>
-						<td>{{candidate.peasant}}</td>
+						<td>{{candidate.peasant.name}}</td>
 						<td>{{candidate.dateElimination | limitTo:10}}</td>
 					</tr>
 				</table>
@@ -54,6 +56,7 @@
 			<div role="tabpanel" class="tab-pane" id="votes">
 				<table class="table table-bordered table-striped" ng-controller="votes">
 					<thead>
+						<th>ID</th>
 						<th>Date</th>
 						<th>User</th>
 						<th>Candidate</th>
@@ -62,11 +65,12 @@
 						<th>Points</th>
 					</thead>
 					<tr ng-repeat="vote in votes">
+						<td>{{vote.id}}</td>
 						<td>{{vote.dateVoted | limitTo:10}}</td>
-						<td>{{vote.user}}</td>
-						<td>{{vote.candidate}}</td>
-						<td>{{vote.period}}</td>
-						<td>{{vote.type}}</td>
+						<td>{{vote.user.name}}</td>
+						<td>{{vote.candidate.name}}</td>
+						<td>{{vote.votePeriod.dateEnd | limitTo:10}}</td>
+						<td>{{vote.voteType.name}}</td>
 						<td>{{vote.points}}</td>
 					</tr>
 				</table>
@@ -74,6 +78,7 @@
 			<div role="tabpanel" class="tab-pane" id="votePeriods">
 				<table class="table table-bordered table-striped" ng-controller="votePeriods">
 					<thead>
+						<th>ID</th>
 						<th>Year</th>
 						<th>Start</th>
 						<th>End</th>
@@ -81,6 +86,7 @@
 						<th>Count</th>
 					</thead>
 					<tr ng-repeat="votePeriod in votePeriods">
+						<td>{{votePeriod.id}}</td>
 						<td>{{votePeriod.year}}</td>
 						<td>{{votePeriod.dateStart | limitTo:10}}</td>
 						<td>{{votePeriod.dateEnd | limitTo:10}}</td>
@@ -92,9 +98,11 @@
 			<div role="tabpanel" class="tab-pane" id="voteTypes">
 				<table class="table table-bordered table-striped" ng-controller="voteTypes">
 					<thead>
+						<th>ID</th>
 						<th>Name</th>
 					</thead>
 					<tr ng-repeat="voteType in voteTypes">
+						<td>{{voteType.id}}</td>
 						<td>{{voteType.name}}</td>
 					</tr>
 				</table>
@@ -102,11 +110,13 @@
 			<div role="tabpanel" class="tab-pane" id="users">
 				<table class="table table-bordered table-striped" ng-controller="users">
 					<thead>
+						<th>ID</th>
 						<th>Year</th>
 						<th>Name</th>
 						<th>Email</th>
 					</thead>
 					<tr ng-repeat="user in users">
+						<td>{{user.id}}</td>
 						<td>{{user.year}}</td>
 						<td>{{user.name}}</td>
 						<td>{{user.email}}</td>

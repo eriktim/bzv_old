@@ -14,6 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import org.apache.log4j.Logger;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 @Entity
 @Table(name="bzv_votes")
@@ -27,10 +28,12 @@ public class Vote {
 
     @ManyToOne
     @JoinColumn(name="userid")
+    @RestResource(exported=false)
     private User user;
 
     @ManyToOne
     @JoinColumn(name="candidateid")
+    @RestResource(exported=false)
     private Candidate candidate;
 
     @Column(name="date_voted")
@@ -38,10 +41,12 @@ public class Vote {
 
     @ManyToOne
     @JoinColumn(name="vote_typeid")
+    @RestResource(exported=false)
     private VoteType voteType;
 
     @ManyToOne
     @JoinColumn(name="vote_periodid")
+    @RestResource(exported=false)
     private VotePeriod votePeriod;
     
     @Transient
