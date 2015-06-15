@@ -6,17 +6,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name="bzv_users")
 public class User {
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private long id;
 	
     private int year;
     private String name;
     private String email;
+
+    @JsonIgnore
     private String hash;
 
     public long getId() {
