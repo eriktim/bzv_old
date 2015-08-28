@@ -32,4 +32,8 @@ public class Peasant {
     public String getName() {
         return name;
     }
+    
+    public Candidate getWinner() {
+    	return null;
+    }
 }
